@@ -7,4 +7,8 @@ class i2cDriver
     public:
         i2cDriver();
         ~i2cDriver();
+
+        void getAccelMeasurements();
+    private:
+        int i2c_handle;
 };
