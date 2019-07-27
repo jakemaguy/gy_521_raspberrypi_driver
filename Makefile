@@ -1,11 +1,10 @@
-src = $(wilcard src/*.cpp) \
-      $(wilcard src/i2c/*.cpp)
-obj = $(src:.cpp=.o)
+src = $(shell find src/ -type f -name '*.cpp')
 
 CXXFLAGS = -Wall
 
-myprog: $(obj)
-	$(CXX) $(CXXFLAGS) $^ -o $^  
+myprog: $(src)
+	$(CXX) $(CXXFLAGS) $^ -o $@   
+
 .PHONY: clean
 clean:
 	rm -f $(obj) myprog
