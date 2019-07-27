@@ -22,6 +22,9 @@ i2cDriver::i2cDriver()
     }
     
     //I2C connection has been established here
+    // Setting Sleep = 0
+    char buf[3] = {I2C_ADDR, PWR_MGMT_1, 0x00};
+    write(i2c_handle,buf,3);
 }
 
 i2cDriver::~i2cDriver()
@@ -31,19 +34,17 @@ i2cDriver::~i2cDriver()
 
 void i2cDriver::getAccelMeasurements()
 {
-    __u16 xGyro;
-    __u8 xGyroReg = 0x43;
-    char buf[10];
+    __u8 xGyroRegH = 0x43;
+    __u8 xGyroRegL = 0x44;
+    char buf[3];
     buf[0] = I2C_ADDR;
-    buf[1] = xGyroReg;
+    buf[1] = 0x3B;
+    buf[2] = 0x3C;
 
-    write(i2c_handle, buf, 1);
-    
-    buf[0] = xGyroReg;
-    buf[1] = xGyroReg;
+    write(i2c_handle, buf, 3);
 
     read(i2c_handle, buf, 2);
 
-    float x_meas = ((float)buf[1] >> 8) + (float)buf[0];
+    float x_meas = (float)(buf[0] << 8) + buf[1];
     std::cout << x_meas << "\n";
 }
