@@ -1,6 +1,6 @@
 src = $(shell find src/ -type f -name '*.cpp')
 
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -lncurses
 
 myprog: $(src)
 	$(CXX) $(CXXFLAGS) $^ -o $@   

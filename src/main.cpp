@@ -1,14 +1,16 @@
 #include <iostream>
 #include <unistd.h>
 #include "i2c/driver.h"
+#include "gui/menu.h"
 
 int main()
 {
     i2cDriver i2c;
-    while(true)
+
+    while (true)
     {
         i2c.getAccelMeasurements();
-	sleep(0.5);
+	sleep(1);
     }
     return 0;
 }
