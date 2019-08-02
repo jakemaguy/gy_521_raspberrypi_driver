@@ -23,8 +23,8 @@ i2cDriver::i2cDriver()
     
     //I2C connection has been established here
     // Setting Sleep = 0
-    char buf[3] = {I2C_ADDR, PWR_MGMT_1, 0x00};
-    write(i2c_handle,buf,3);
+    char buf[2] = {PWR_MGMT_1, 0x00};
+    write(i2c_handle,buf,2);
 }
 
 i2cDriver::~i2cDriver()
@@ -37,11 +37,8 @@ void i2cDriver::getAccelMeasurements()
     __u8 xGyroRegH = 0x43;
     __u8 xGyroRegL = 0x44;
     char buf[3];
-    buf[0] = I2C_ADDR;
-    buf[1] = 0x3B;
-    buf[2] = 0x3C;
-
-    write(i2c_handle, buf, 3);
+    buf[0] = 0x3B;
+    write(i2c_handle, buf, 1);
 
     read(i2c_handle, buf, 2);
 
